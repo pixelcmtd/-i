@@ -1,0 +1,15 @@
+#!/bin/sh
+set -ue
+
+if [ $# -lt 2 ] ; then
+        echo "Usage: $0 [file] [command]" 2>/dev/null
+        exit -42
+fi
+
+file="$1"
+shift
+tmp=`mktemp`
+
+"$@" < "$file" > "$tmp"
+
+mv -f "$tmp" "$file"
